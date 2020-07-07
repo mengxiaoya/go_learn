@@ -14,7 +14,7 @@ type Feed struct {
 	Type string `json:"type"`
 }
 
-// RetrieveFeeds reads and unmarshals the feed data file.
+// 此函数的返回值是一组Feed类型的切片，切片是一种实现了一个动态数组的引用类型
 func RetrieveFeeds() ([]*Feed, error) {
 	// Open the file.
 	file, err := os.Open(dataFile)
