@@ -1,18 +1,22 @@
 package search
 
+// match.go 代码文件包含创建不同类型匹配器的代码
+
 import (
 	"log"
 )
 
-// Result contains the result of a search.
+// 声明一个结构类型
 type Result struct {
 	Field   string
 	Content string
 }
 
-// Matcher defines the behavior required by types that want
-// to implement a new search type.
+// 声明一个接口类型
+// 命名接口的时候，也需要遵守Go 语言的命名惯例。如果接口类型只包含一个方法，那么这个接口类型的名字以er 结尾。
 type Matcher interface {
+	// 只声明了一个Search 方法，这个方法输入一个指向Feed 类型值的指针和一个string 类型的搜索项
+	// 这个方法返回两个值：一个指向Result 类型值的指针的切片，另一个是错误值
 	Search(feed *Feed, searchTerm string) ([]*Result, error)
 }
 

@@ -82,14 +82,14 @@ func Run(searchTerm string) {
 
 	// 启动一个 goroutine 来监控是否所有的工作都做完了
 	go func() {
-		// 等候所有任务完成
+		// 等候所有任务完成，这个方法会造成阻塞，直到WaitGroup内部的计数到达0
 		waitGroup.Wait()
 
 		//  用关闭通道的方式，通知 Display 函数，可以退出程序了
 		close(results)
 	}()
 
-	// 启动函数，显示返回的结果，并且在最后一个结果显示完后返回
+	// 该函数的作用就是打印返回的结果，并且在最后一个结果显示完后返回
 	Display(results)
 }
 
