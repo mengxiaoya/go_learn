@@ -1,0 +1,30 @@
+/
+/authenticate
+/view/{path}
+
+
+PathPrefix: /agent
+/agent/ping
+      /status/{type}
+      /version
+      /hostname
+      /log/{flip}
+      /flare
+      /restart
+      /getConfig
+      /setConfig
+
+
+PathPrefix: /checks
+/checks/running
+       /run/{name}
+       /run/{name}/once
+       /reload/{name}
+       /getConfig/{fileName}
+       /getConfig/{checkFolder}/{fileName}
+       /setConfig/{fileName}
+       /setConfig/{checkFolder}/{fileName}
+       /setConfig/{fileName}
+       /setConfig/{checkFolder}/{fileName}
+       /listChecks
+       /listConfigs
