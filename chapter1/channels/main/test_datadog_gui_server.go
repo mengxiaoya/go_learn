@@ -31,6 +31,9 @@ func httpHandle(method, urlVal, data string) {
 
 	//添加header, 这里的配置是为了通过gui.go中的authorizePOST验证
 	req.Header.Add("Authorization", "Bearer aa9744914c54d3ceddbbe2dd2f204be6d2d09358fa50281b218daeb0a3bda59d")
+	req.Header.Add("url", "http://192.168.5.211:8889/data")
+	req.Header.Add("module_path", "/data/br/base")
+	req.Header.Add("module_name", "druid")
 
 	resp, err := client.Do(req)
 
@@ -54,5 +57,7 @@ func getParseParam(param string) string {
 func main() {
 	args := os.Args
 	log.Printf("args:%s\n", args)
-	httpHandle("POST", "http://"+args[1]+":9876/authenticate", "")
+	//httpHandle("POST", "http://"+args[1]+":9876/authenticate", "")
+	//httpHandle("POST", "http://"+args[1]+":9876/agent/uploadcfg", "")
+	httpHandle("POST", "http://"+args[1]+":8889/data", "")
 }
