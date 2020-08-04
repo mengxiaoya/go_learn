@@ -26,18 +26,23 @@ func httpHandle(method, urlVal, data string) {
 	}
 
 	// 可以添加多个cookie
-	cookie1 := &http.Cookie{Name: "authToken", Value: "aa9744914c54d3ceddbbe2dd2f204be6d2d09358fa50281b218daeb0a3bda59d", HttpOnly: true}
+	cookie1 := &http.Cookie{Name: "authToken", Value: "6bf510bc5559d86201946513b545d9c18193ed7ee40ff7cc2251a65836d9cf26", HttpOnly: true}
 	req.AddCookie(cookie1)
 
 	//添加header, 这里的配置是为了通过gui.go中的authorizePOST验证
-	req.Header.Add("Authorization", "Bearer aa9744914c54d3ceddbbe2dd2f204be6d2d09358fa50281b218daeb0a3bda59d")
-	req.Header.Add("url", "http://192.168.5.211:8889/data")
-	req.Header.Add("module_path", "/data/br/base")
-	req.Header.Add("module_name", "druid")
+	req.Header.Add("Authorization", "Bearer 6bf510bc5559d86201946513b545d9c18193ed7ee40ff7cc2251a65836d9cf26")
+	//req.Header.Add("type", "heartbeat")
+	//req.Header.Add("url", "http://192.168.5.211:8889/data")
+	//req.Header.Add("module_path", "/data/br/base")
+	//req.Header.Add("module_name", "druid")
 
+	req.Header.Add("version", "V1")
+	req.Header.Add("type", "RebalanceService")
+	req.Header.Add("service", "http://192.168.150.71:8889/view")
 	resp, err := client.Do(req)
 
 	if err != nil {
+		log.Printf("error: %s", err)
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
@@ -58,6 +63,7 @@ func main() {
 	args := os.Args
 	log.Printf("args:%s\n", args)
 	//httpHandle("POST", "http://"+args[1]+":9876/authenticate", "")
-	//httpHandle("POST", "http://"+args[1]+":9876/agent/uploadcfg", "")
-	httpHandle("POST", "http://"+args[1]+":8889/data", "")
+	//httpHandle("POST", "http://"+args[1]+":9876/agent/uploadcfg", "")  // 配置文件
+	httpHandle("POST", "http://"+args[1]+":9876/agent/heartbeat", "") // 心跳
+	//httpHandle("POST", "http://"+args[1]+":8889/data", "")
 }
